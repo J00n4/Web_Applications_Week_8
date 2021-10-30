@@ -31,12 +31,12 @@ router.get('/', function(req, res, next) {
 
 //Update
 
-router.get('/private', validateToken, function(req, res, next) {
+/*router.get('/private', validateToken, function(req, res, next) {
   User.find({}, (err, user) => {
     if(err) return next(err);
-    res.render("private", {user: email});
+    res.render("private", {email});
   })
-});
+});*/
 
 /*router.post('/private', passport.authenticate('jwt', { session: false}),
   function(req, res) {
