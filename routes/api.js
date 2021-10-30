@@ -25,8 +25,11 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));*/
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/list', function(req, res, next) {
+  User.find({}, (err, users) => {
+    if(err) return next(err);
+    res.render("users", {users});
+  })
 });
 
 //Update
@@ -49,9 +52,9 @@ router.get('/user/login', function(req, res, next) {
 });
 
 router.post('/user/login', 
-  body("username").trim().escape(),
-  body("email").escape(),
-  body("password").escape(),
+  body("username").isLength({min: 3}).trim().escape(),
+  body("email").isEmail().isLength({min: 5}).escape(),
+  body("password").isStrongPassword().escape(),
   function(req, res, next) {
     User.findOne({username: req.body.username}, (err, user) => {
       if(err) throw err;
