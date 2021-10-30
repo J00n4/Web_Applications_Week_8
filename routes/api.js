@@ -37,7 +37,7 @@ router.get('/list', function(req, res, next) {
 router.get('/private', validateToken, function(req, res, next) {
   User.find({}, (err, user) => {
     if(err) return next(err);
-    res.render("private", {email});
+    res.render("private", {user});
   })
 });
 
