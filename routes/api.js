@@ -29,6 +29,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+//Update
 
 router.get('/private', validateToken, function(req, res, next) {
   User.find({}, (err, user) => {
