@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
 
 var passport = require('passport');
-/*var JwtStrategy = require('passport-jwt').Strategy,
+var JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -22,7 +22,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
       return done(null, false);
     }
   });
-}));*/
+}));
 
 /* GET users listing. */
 router.get('/list', function(req, res, next) {
@@ -35,16 +35,17 @@ router.get('/list', function(req, res, next) {
 //Update
 
 router.get('/private', validateToken, function(req, res, next) {
+  console.log(req);
   User.find({}, (err, user) => {
     if(err) return next(err);
-    res.render("private", {user});
+    res.render("private", {email: req.user.email});
   })
 });
 
-router.post('/private', passport.authenticate('jwt', { session: false}),
+/*router.post('/private', passport.authenticate('jwt', { session: false}),
   function(req, res) {
     res.send(req.user.email);
-  });
+  });*/
 
 
 router.get('/user/login', function(req, res, next) {
