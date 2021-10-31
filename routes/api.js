@@ -72,7 +72,6 @@ router.post('/todos', validateToken,
           },
           (err, ok) => {
             if(err) throw err;
-            console.log(user.items);
             console.log("List created");
             //return user.items;
             return res.redirect("/");
