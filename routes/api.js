@@ -82,7 +82,7 @@ router.post('/todos', validateToken,
       } else {
         //let itemlist = body;
         
-        user.items = req.user.items;
+        user.items.append(req.user.items);
 
         /*Todo.updateOne(
           {items: req.body.items}
