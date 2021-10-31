@@ -72,17 +72,17 @@ router.post('/todos', validateToken,
           },
           (err, ok) => {
             if(err) throw err;
-            console.log("List created");
             //return user.items;
           }
         )
+        console.log("List created");
         return res.redirect("/");
         //return res.status(404).json({message: "No items found!"});
       } else {
         //let itemlist = body;
         
         user.items.push(req.body.items);
-        console.log("Täällä");
+        //console.log("Täällä");
         console.log(user.items);
 
         /*Todo.updateOne(
