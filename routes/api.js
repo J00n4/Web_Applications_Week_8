@@ -74,7 +74,7 @@ router.post('/todos', validateToken,
             //console.log(user.items);
             console.log("List created");
             //return user.items;
-            //return res.redirect("/api/todos");
+            return res.redirect("/");
           }
         )
         //return res.status(404).json({message: "No items found!"});
@@ -107,7 +107,7 @@ router.post('/todos', validateToken,
         );*/
         //console.log(user.items);
         //return user.items;
-        //return res.redirect("/api/todos");
+        return res.redirect("/");
       }
     })
   }
