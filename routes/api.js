@@ -68,11 +68,11 @@ router.post('/todos', validateToken,
         Todo.create(
           {
             user: req.user.id,
-            items: req.user.items
+            items: req.body.items
           },
           (err, ok) => {
             if(err) throw err;
-            //console.log(user.items);
+            console.log(user.items);
             console.log("List created");
             //return user.items;
             return res.redirect("/");
@@ -82,7 +82,9 @@ router.post('/todos', validateToken,
       } else {
         //let itemlist = body;
         
-        user.items.append(req.user.items);
+        user.items.push(req.body.items);
+        console.log("Täällä");
+        console.log(user.items);
 
         /*Todo.updateOne(
           {items: req.body.items}
