@@ -62,7 +62,6 @@ router.post('/todos', validateToken,
   function(req, res, next) {
     console.log(req.user);
     Todo.findOne({user: req.user.id}, (err, user) => {
-      console.log(user.user);
       if(err) throw err;
       if(!user) {
         //let itemlist = body;
