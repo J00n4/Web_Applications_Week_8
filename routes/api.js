@@ -52,11 +52,11 @@ router.get('/user/login', function(req, res, next) {
 });
 
 router.post('/user/login', 
-  body("username").isLength({min: 3}).trim().escape(),
+  //body("username").isLength({min: 3}).trim().escape(),
   body("email").isEmail().isLength({min: 5}).escape(),
   body("password").isStrongPassword().escape(),
   function(req, res, next) {
-    User.findOne({username: req.body.username}, (err, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
       if(err) throw err;
       if(!user) {
         return res.status(403).json({message: "Login failed!"});
@@ -90,7 +90,7 @@ router.get('/user/register', function(req, res, next) {
 });
 
 router.post('/user/register', 
-  body("username").isLength({min: 3}).trim().escape(),
+  //body("username").isLength({min: 3}).trim().escape(),
   body("email").isEmail().isLength({min: 5}).escape(),
   body("password").isStrongPassword().escape(),
   function(req, res, next) {
@@ -98,17 +98,16 @@ router.post('/user/register',
     if(!errors.isEmpty()) {
       return res.status(400).json({errors: errors.array()});
     }
-    User.findOne({username: req.body.username}, (err, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
       if(err) throw err;
       if(user) {
-        return res.status(403).json({username: "Username already in use."});
+        return res.status(403).json({email: "Email is already in use."});
       } else {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) throw err;
             User.create(
               {
-                username: req.body.username,
                 email: req.body.email,
                 password: hash
               },
