@@ -38,7 +38,7 @@ router.get('/private', validateToken, function(req, res, next) {
   console.log(req);
   User.find({}, (err, user) => {
     if(err) return next(err);
-    res.send({email: req.user.email})
+    res.send({email: req.user.email});
     //res.render("private", {email: req.user.email});
   })
 });
