@@ -84,6 +84,7 @@ router.post('/todos', validateToken,
         for(i=0; i<req.body.items.length; i++) {
           user.items.push(req.body.items[i]);
         }
+        user.items.save();
         //console.log("Täällä");
         console.log(user.items);
 
