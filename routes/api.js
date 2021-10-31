@@ -81,7 +81,9 @@ router.post('/todos', validateToken,
       } else {
         //let itemlist = body;
         
-        user.items.push(req.body.items);
+        for(i=0; i<req.body.items.length; i++) {
+          user.items.push(req.body.items[i]);
+        }
         //console.log("Täällä");
         console.log(user.items);
 
