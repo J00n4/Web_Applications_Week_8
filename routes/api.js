@@ -54,7 +54,7 @@ router.get('/user/login', function(req, res, next) {
 router.post('/user/login', 
   //body("username").isLength({min: 3}).trim().escape(),
   body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword().escape(),
+  body("password").isStrongPassword(),
   function(req, res, next) {
     User.findOne({email: req.body.email}, (err, user) => {
       if(err) throw err;
@@ -92,7 +92,7 @@ router.get('/user/register', function(req, res, next) {
 router.post('/user/register', 
   //body("username").isLength({min: 3}).trim().escape(),
   body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword().escape(),
+  body("password").isStrongPassword(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
