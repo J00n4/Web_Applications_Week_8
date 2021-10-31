@@ -60,14 +60,16 @@ router.get('/private', validateToken, function(req, res, next) {
 router.post('/todos', validateToken,
   //body("todos"),
   function(req, res, next) {
-    Todo.findOne({user: req.body.id}, (err, user) => {
+    console.log(req.user);
+    Todo.findOne({user: req.user.id}, (err, user) => {
+      console.log(user.user);
       if(err) throw err;
       if(!user) {
         //let itemlist = body;
         Todo.create(
           {
-            user: req.body.id,
-            items: req.body.items
+            user: req.user.id,
+            items: req.user.items
           },
           (err, ok) => {
             if(err) throw err;
@@ -81,7 +83,7 @@ router.post('/todos', validateToken,
       } else {
         //let itemlist = body;
         
-        user.items = req.body.items;
+        user.items = req.user.items;
 
         /*Todo.updateOne(
           {items: req.body.items}
