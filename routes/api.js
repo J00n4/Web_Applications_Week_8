@@ -50,7 +50,7 @@ router.get('/private', validateToken, function(req, res, next) {
   });*/
 
 
-router.get('/todos', validateToken, function(req, res, next) {
+router.get('/todos', function(req, res, next) {
   Todo.find({}, (err, user) => {
     if(err) return next(err);
     res.render('todo', {user});
@@ -60,27 +60,31 @@ router.get('/todos', validateToken, function(req, res, next) {
 router.post('/todos', validateToken,
   body("todos"),
   function(req, res, next) {
-    Todo.findOne({user: req.body._id}, (err, user) => {
+    Todo.findOne({user: req.body.id}, (err, user) => {
       if(err) throw err;
       if(!user) {
-        let itemlist = body;
+        //let itemlist = body;
         Todo.create(
           {
-            user: req.body._id,
-            items: itemlist
+            user: req.body.id,
+            items: req.body.items
           },
           (err, ok) => {
             if(err) throw err;
             console.log(user.items);
-            return res.redirect("/api/todos");
+            //return res.redirect("/api/todos");
           }
         )
         //return res.status(404).json({message: "No items found!"});
       } else {
-        let itemlist = body;
-        user.items.push(itemlist);
+        //let itemlist = body;
+        Todo.findOneAndUpdate(
+          {user: req.body.id},
+          {$push: {items: req.body.items} },
+          {upsert: true}
+        );
         console.log(user.items);
-        return res.redirect("/api/todos");
+        //return res.redirect("/api/todos");
       }
     })
   }
