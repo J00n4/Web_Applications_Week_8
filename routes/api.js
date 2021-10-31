@@ -74,9 +74,9 @@ router.post('/todos', validateToken,
             if(err) throw err;
             console.log("List created");
             //return user.items;
-            return res.redirect("/");
           }
         )
+        return res.redirect("/");
         //return res.status(404).json({message: "No items found!"});
       } else {
         //let itemlist = body;
