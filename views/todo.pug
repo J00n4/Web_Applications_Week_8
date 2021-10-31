@@ -1,0 +1,7 @@
+extends layout 
+
+block content 
+    form(action="/api/todos" method="POST")
+            label(for="todos") Todos
+            input(type="text" name="todos" id="todos")
+            button(class="btn" type="submit") Add todos

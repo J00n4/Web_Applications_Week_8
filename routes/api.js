@@ -6,6 +6,7 @@ const {body, validationResult} = require("express-validator");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
+const Todo = require("../models/Todo");
 
 var passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy,
@@ -47,6 +48,43 @@ router.get('/private', validateToken, function(req, res, next) {
   function(req, res) {
     res.send(req.user.email);
   });*/
+
+
+router.get('/todos', validateToken, function(req, res, next) {
+  Todo.find({}, (err, user) => {
+    if(err) return next(err);
+    res.render('todo', {user});
+  })
+});
+
+router.post('/todos',
+  body("todos"),
+  function(req, res, next) {
+    Todo.findOne({user: req.body._id}, (err, user) => {
+      if(err) throw err;
+      if(!user) {
+        let itemlist = body;
+        Todo.create(
+          {
+            user: req.body._id,
+            items: itemlist
+          },
+          (err, ok) => {
+            if(err) throw err;
+            console.log(user.items);
+            return res.redirect("/api/todos");
+          }
+        )
+        //return res.status(404).json({message: "No items found!"});
+      } else {
+        let itemlist = body;
+        user.items.push(itemlist);
+        console.log(user.items);
+        return res.redirect("/api/todos");
+      }
+    })
+  }
+);
 
 
 router.get('/user/login', function(req, res, next) {
