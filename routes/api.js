@@ -57,7 +57,7 @@ router.get('/todos', validateToken, function(req, res, next) {
   })
 });
 
-router.post('/todos',
+router.post('/todos', validateToken,
   body("todos"),
   function(req, res, next) {
     Todo.findOne({user: req.body._id}, (err, user) => {
