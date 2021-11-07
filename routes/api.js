@@ -1,4 +1,5 @@
 var express = require('express');
+const path = require('path');
 var router = express.Router();
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
@@ -7,6 +8,9 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
 const Todo = require("../models/Todo");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({storage});
 
 var passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy,
@@ -33,7 +37,11 @@ router.get('/list', function(req, res, next) {
   })
 });
 
-//Update
+// ??????????????
+/*router.get('/register.html', function(req, res, next) {
+  res.sendFile("C:/Users/joona/Desktop/LUT/Web Applications/Viikko 7/public/html/register.html");
+});*/
+
 
 router.get('/private', validateToken, function(req, res, next) {
   console.log(req);
@@ -163,8 +171,10 @@ router.get('/user/register', function(req, res, next) {
 
 router.post('/user/register', 
   //body("username").isLength({min: 3}).trim().escape(),
-  body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword(),
+
+  //body("email").isEmail().isLength({min: 5}).escape(),
+  //body("password").isStrongPassword(),
+  upload.none(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
