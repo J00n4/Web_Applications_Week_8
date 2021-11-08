@@ -9,7 +9,7 @@ var mongoose = require("mongoose");
 
 const bcrypt = require("bcryptjs");
 const {body, validationResult} = require("express-validator");
-const User = require("../Viikko 7/models/user");
+const User = require("../Viikko 7/models/user.js");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../Viikko 7/auth/validateToken.js");
 const multer = require("multer");
