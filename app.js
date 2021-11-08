@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.join(__dirname, 'api')));
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/api', usersRouter);
 
 
@@ -85,6 +85,47 @@ app.post('/register.html',
 app.get('/login.html', function(req, res, next) {
   res.sendFile(path.join(__dirname + "/public/html/login.html"));
 });
+
+app.post('/login.html', 
+  //body("username").isLength({min: 3}).trim().escape(),
+  //body("email").isEmail().isLength({min: 5}).escape(),
+  //body("password").isStrongPassword(),
+  upload.none(),
+  function(req, res, next) {
+    User.findOne({email: req.body.email}, (err, user) => {
+      if(err) throw err;
+      if(!user) {
+        return res.status(403).json({message: "Login failed!"});
+      } else {
+        bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+          if(err) throw err;
+          if(isMatch) {
+            const jwtPayload = {
+              id: user._id,
+              email: user.email
+            }
+            jwt.sign(
+              jwtPayload,
+              process.env.SECRET,
+              {
+                expiresIn: 300
+              },
+              (err, token) => {
+                //res.json({success: true, token});
+                //window.location.href = "/";
+                return res.redirect("/");
+              }
+            );
+          }
+        })
+      }
+    })
+});
+
+app.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname + '/public/html/index.html'));
+});
+
 
 
 // catch 404 and forward to error handler
