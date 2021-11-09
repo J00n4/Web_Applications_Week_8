@@ -41,10 +41,10 @@ app.use(express.static(path.join(__dirname, 'models')));
 //app.use(express.static(path.join(__dirname, 'api')));
 
 //app.use('/', indexRouter);
-app.use('/api', usersRouter);
+app.use('/', usersRouter);
 
 
-app.get('/register.html', function(req, res, next) {
+/*app.get('/register.html', function(req, res, next) {
   res.sendFile(path.join(__dirname + "/public/html/register.html"));
 });
 
@@ -125,7 +125,7 @@ app.post('/login.html',
 
 app.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/public/html/index.html'));
-});
+});*/
 
 
 
