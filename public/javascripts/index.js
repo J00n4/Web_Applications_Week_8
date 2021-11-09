@@ -11,7 +11,7 @@ const Todo = require("../models/Todo");
 const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
-//const style = require("../stylesheets/style.css");
+const style = require("../stylesheets/style.css");
 
 
 

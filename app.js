@@ -16,7 +16,7 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
-var indexRouter = require('./routes/index');
+//var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api');
 
 var app = express();
