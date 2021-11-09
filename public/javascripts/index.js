@@ -24,7 +24,19 @@ if(document.readyState !== "loading") {
 }
 
 function initializeCode() {
-    document.getElementById("index-form").addEventListener("submit", onSubmit);
+    //document.getElementById("index-form").addEventListener("submit", onSubmit);
+    
+    /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
+    Jos ei ole kirjautunut, näytetään login ja register linkit*/
+    token = getToken();
+    console.log("test");
+    if(token) {
+        document.getElementById("email_text").setAttribute("display", "block");
+        document.getElementById("logout").setAttribute("display", "block");
+        document.getElementById("links").setAttribute("display", "none");
+        
+    }
+
     document.getElementById("logout").addEventListener("click", logout);
 }
 
@@ -32,10 +44,9 @@ function onSubmit(event) {
     event.preventDefault();
     const formData = new formData(event.target);
 
-    /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
-    Jos ei ole kirjautunut, näytetään login ja register linkit*/
-    fetch("/login.html", {
-        method: "POST",
+
+    /*fetch("/login.html", {
+        method: "GET",
         headers: {
             'Content-type': 'application/json',
         },
@@ -82,7 +93,13 @@ function onSubmit(event) {
               })
 
             
-        })
+        })*/
+}
+
+
+function getToken() {
+    var token = localStorage.getItem("auth_token");
+    return token;
 }
 
 function logout() {

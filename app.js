@@ -11,7 +11,7 @@ const bcrypt = require("bcryptjs");
 const {body, validationResult} = require("express-validator");
 const User = require("../Viikko 7/models/user.js");
 const jwt = require("jsonwebtoken");
-const validateToken = require("../Viikko 7/auth/validateToken.js");
+//const validateToken = require("../Viikko 7/auth/validateToken.js");
 const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
@@ -37,6 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'models')));
 //app.use(express.static(path.join(__dirname, 'api')));
 
 //app.use('/', indexRouter);
