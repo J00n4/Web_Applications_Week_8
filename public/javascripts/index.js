@@ -27,7 +27,7 @@ function initializeCode() {
     //document.getElementById("index-form").addEventListener("submit", onSubmit);
     
     /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
-    Jos ei ole kirjautunut, näytetään login ja register linkit*/
+    Jos ei ole kirjautunut, näytetään login ja register linkit */
     token = getToken();
     console.log("test");
     if(token) {
