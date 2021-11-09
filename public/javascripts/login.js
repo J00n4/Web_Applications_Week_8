@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 const path = require('path');
 var router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -10,7 +10,7 @@ const validateToken = require("../auth/validateToken.js");
 const Todo = require("../models/Todo");
 const multer = require("multer");
 const storage = multer.memoryStorage();
-const upload = multer({storage});
+const upload = multer({storage});*/
 
 
 

@@ -46,9 +46,9 @@ router.get('/register.html', function(req, res, next) {
 router.post('/register.html', 
   //body("username").isLength({min: 3}).trim().escape(),
 
-  //body("email").isEmail().isLength({min: 5}).escape(),
-  //body("password").isStrongPassword(),
-  upload.none(),
+  body("email").isEmail().isLength({min: 5}).escape(),
+  body("password").isStrongPassword(),
+  //upload.none(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
