@@ -40,7 +40,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 
 
 router.get('/register.html', function(req, res, next) {
-  res.sendFile(__dirname + "/register.html");
+  res.sendFile(path.join(__dirname + "/register.html"));
 });
 
 router.post('/register.html', 
