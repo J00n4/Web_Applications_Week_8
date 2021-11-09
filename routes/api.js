@@ -30,12 +30,12 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));
 
 /* GET users listing. */
-router.get('/list', function(req, res, next) {
+/*router.get('/list', function(req, res, next) {
   User.find({}, (err, users) => {
     if(err) return next(err);
     res.render("users", {users});
   })
-});
+});*/
 
 
 
@@ -131,14 +131,14 @@ router.get('/', function(req, res, next) {
 });*/
 
 
-router.get('/private', validateToken, function(req, res, next) {
+/*router.get('/private', validateToken, function(req, res, next) {
   console.log(req);
   User.find({}, (err, user) => {
     if(err) return next(err);
     res.send({email: req.user.email});
     //res.render("private", {email: req.user.email});
   })
-});
+});*/
 
 /*router.post('/private', passport.authenticate('jwt', { session: false}),
   function(req, res) {
@@ -254,7 +254,7 @@ router.post('/user/login',
 });
 
 
-router.get('/user/register', function(req, res, next) {
+/*router.get('/user/register', function(req, res, next) {
   res.render('register');
 });
 
@@ -291,6 +291,6 @@ router.post('/user/register',
         })
       }
     });
-});
+});*/
 
 module.exports = router;
