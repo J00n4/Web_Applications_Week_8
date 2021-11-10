@@ -28,7 +28,7 @@ function initializeCode() {
 
 function onSubmit(event) {
     event.preventDefault();
-    const formData = new formData(event.target);
+    const formData = new FormData(event.target);
     console.log(formData);
     /*const data = {
         email: 'example@email.com',
