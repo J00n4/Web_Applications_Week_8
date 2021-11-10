@@ -30,7 +30,7 @@ function onSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    fetch("/user/login", {
+    fetch("/api/user/login", {
         method: "POST",
         /*headers: {
             'Content-type': 'application/json'

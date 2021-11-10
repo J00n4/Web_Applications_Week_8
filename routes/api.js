@@ -30,15 +30,15 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));
 
 /* GET users listing. */
-/*router.get('/list', function(req, res, next) {
+router.get('/list', function(req, res, next) {
   User.find({}, (err, users) => {
     if(err) return next(err);
     res.render("users", {users});
   })
-});*/
+});
 
 
-
+/*
 router.get('/register.html', function(req, res, next) {
   res.sendFile(path.join(__dirname + "/register.html"));
 });
@@ -120,7 +120,7 @@ router.post('/login.html',
 
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/index.html'));
-});
+});*/
 
 
 
@@ -221,9 +221,9 @@ router.get('/user/login', function(req, res, next) {
 
 router.post('/user/login', 
   //body("username").isLength({min: 3}).trim().escape(),
-  body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword(),
-  //upload.none(),
+  //body("email").isEmail().isLength({min: 5}).escape(),
+  //body("password").isStrongPassword(),
+  upload.none(),
   function(req, res, next) {
     User.findOne({email: req.body.email}, (err, user) => {
       if(err) throw err;
@@ -245,6 +245,7 @@ router.post('/user/login',
               },
               (err, token) => {
                 res.json({success: true, token});
+                //window.location.href = "/";
               }
             );
           }
@@ -261,9 +262,9 @@ router.get('/user/register', function(req, res, next) {
 router.post('/user/register', 
   //body("username").isLength({min: 3}).trim().escape(),
 
-  body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword(),
-  //upload.none(),
+  //body("email").isEmail().isLength({min: 5}).escape(),
+  //body("password").isStrongPassword(),
+  upload.none(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
@@ -284,7 +285,8 @@ router.post('/user/register',
               },
               (err, ok) => {
                 if(err) throw err;
-                return res.redirect("/api/user/login");
+                res.json({success: true});
+                //return res.redirect("/user/login");
               }
             )
           })

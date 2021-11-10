@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'models')));
 //app.use(express.static(path.join(__dirname, 'api')));
 
 //app.use('/', indexRouter);
-app.use('/', usersRouter);
+app.use('/api', usersRouter);
 
 
 /*app.get('/register.html', function(req, res, next) {

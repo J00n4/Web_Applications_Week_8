@@ -34,7 +34,7 @@ function onSubmit(event) {
         password: 'Example1!'
     };*/
 
-    fetch("/user/register", {
+    fetch("/api/user/register", {
         method: "POST",
         /*headers: {
             'Content-type': 'application/json'
