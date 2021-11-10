@@ -30,20 +30,31 @@ function initializeCode() {
     /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
     Jos ei ole kirjautunut, näytetään login ja register linkit */
     token = getToken();
-    if(token) {
+    var links = document.getElementById("links");
+    var logoutButton = document.getElementById("logout");
+    var email_info = document.getElementById("email_text");
+    if(!token) {
         //document.getElementById("links").remove();
-        var input_field = document.getElementById("login_area");
-        var btn = document.createElement("button");
-        btn.setAttribute("id", "logout");
-        btn.innerHTML = "Logout";
-        input_field.appendChild(btn);
-        var email_info = document.createElement("p");
-        email_info.innerHTML = token;
-        input_field.appendChild(email_info);
+        links.style.visibility = "visible";
+
+        //var input_field = document.getElementById("login_area");
+        //var btn = document.createElement("button");
+        //btn.setAttribute("id", "logout");
+        //btn.innerHTML = "Logout";
+        //input_field.appendChild(btn);
+        logoutButton.style.visibility = "hidden";
+        
+        email_info.style.visibility = "hidden";
+        //var email_info = document.createElement("p");
+        //email_info.innerHTML = token;
+        //input_field.appendChild(email_info);
         //document.getElementById("email_text").setAttribute("display", "block");
         //document.getElementById("logout").setAttribute("display", "block");
         //document.getElementById("links").setAttribute("display", "none");
-        
+    } else {
+        links.style.visibility = "hidden";
+        logoutButton.style.visibility = "visible";
+        email_info.style.visibility = "visible";
     }
 
     document.getElementById("logout").addEventListener("click", logout);
