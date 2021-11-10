@@ -3,9 +3,9 @@ const path = require('path');
 var router = express.Router();
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const {body, validationResult} = require("express-validator");*/
+const {body, validationResult} = require("express-validator");
 const User = require("../models/user");
-/*const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
 const Todo = require("../models/Todo");
 const multer = require("multer");
@@ -45,7 +45,7 @@ function onSubmit(event) {
         .then((response) => response.json())
         .then((data) => {
             console.log("test2");
-            /*if(data.token) {
+            if(data.token) {
                 storeToken(data.token);
                 window.location.href = "/login.html"
             } else {
@@ -54,9 +54,9 @@ function onSubmit(event) {
                 } else {
                     return res.send("Error occurred!");
                 }
-            }*/
+            }
             //return res.redirect("/login.html");
-            User.findOne({email: data.email}, (err, user) => {
+            /*User.findOne({email: data.email}, (err, user) => {
             if(err) throw err;
             if(user) {
                 return JSON.stringify({email: "Email is already in use."});
