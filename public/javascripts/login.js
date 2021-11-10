@@ -28,13 +28,14 @@ function initializeCode() {
 
 function onSubmit(event) {
     event.preventDefault();
-    const formData = new formData(event.target);
+    const formData = new FormData(event.target);
 
-    fetch("/login.html", {
+    fetch("/user/login", {
         method: "POST",
-        headers: {
-            'Content-type': 'application/json',
-        },
+        /*headers: {
+            'Content-type': 'application/json'
+            //'Accept': 'application/json'
+        },*/
         body: formData
     })
         .then((response) => response.json())
@@ -42,13 +43,13 @@ function onSubmit(event) {
             if(data.token) {
                 storeToken(data.token);
                 window.location.href = "/";
-            } else {
+            } /*else {
                 if(data.message) {
-                    return res.send(data.message);
+                    return JSON.stringify(data.message);
                 } else {
-                    return res.send("Error!");
+                    return JSON.stringify("Error!");
                 }
-            }
+            }*/
             /*User.findOne({email: data.email}, (err, user) => {
                 if(err) throw err;
                 if(!user) {

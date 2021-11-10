@@ -46,9 +46,9 @@ router.get('/register.html', function(req, res, next) {
 router.post('/register.html', 
   //body("username").isLength({min: 3}).trim().escape(),
 
-  body("email").isEmail().isLength({min: 5}).escape(),
-  body("password").isStrongPassword(),
-  //upload.none(),
+  //body("email").isEmail().isLength({min: 5}).escape(),
+  //body("password").isStrongPassword(),
+  upload.none(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
@@ -221,9 +221,9 @@ router.get('/user/login', function(req, res, next) {
 
 router.post('/user/login', 
   //body("username").isLength({min: 3}).trim().escape(),
-  //body("email").isEmail().isLength({min: 5}).escape(),
-  //body("password").isStrongPassword(),
-  upload.none(),
+  body("email").isEmail().isLength({min: 5}).escape(),
+  body("password").isStrongPassword(),
+  //upload.none(),
   function(req, res, next) {
     User.findOne({email: req.body.email}, (err, user) => {
       if(err) throw err;
@@ -254,16 +254,16 @@ router.post('/user/login',
 });
 
 
-/*router.get('/user/register', function(req, res, next) {
+router.get('/user/register', function(req, res, next) {
   res.render('register');
 });
 
 router.post('/user/register', 
   //body("username").isLength({min: 3}).trim().escape(),
 
-  //body("email").isEmail().isLength({min: 5}).escape(),
-  //body("password").isStrongPassword(),
-  upload.none(),
+  body("email").isEmail().isLength({min: 5}).escape(),
+  body("password").isStrongPassword(),
+  //upload.none(),
   function(req, res, next) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
@@ -291,6 +291,6 @@ router.post('/user/register',
         })
       }
     });
-});*/
+});
 
 module.exports = router;

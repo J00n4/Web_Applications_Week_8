@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const {body, validationResult} = require("express-validator");
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
+/*const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
 const Todo = require("../models/Todo");
 const multer = require("multer");
@@ -34,27 +34,27 @@ function onSubmit(event) {
         email: 'example@email.com',
         password: 'Example1!'
     };*/
-    console.log("test1");
-    fetch("/register.html", {
+
+    fetch("/user/register", {
         method: "POST",
-        headers: {
-            'Content-type': 'application/json',
-        },
+        /*headers: {
+            'Content-type': 'application/json'
+            //'Accept': 'application/json'
+        },*/
         body: formData,/*JSON.stringify(data)*/
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log("test2");
-            if(data.token) {
-                storeToken(data.token);
+            if(data) {
+                //storeToken(data);
                 window.location.href = "/login.html"
-            } else {
+            } /*else {
                 if(data.message) {
                     return res.send(data.message);
                 } else {
                     return res.send("Error occurred!");
                 }
-            }
+            }*/
             //return res.redirect("/login.html");
             /*User.findOne({email: data.email}, (err, user) => {
             if(err) throw err;

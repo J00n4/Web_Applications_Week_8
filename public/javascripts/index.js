@@ -31,18 +31,34 @@ function initializeCode() {
     token = getToken();
     console.log("test");
     if(token) {
-        document.getElementById("email_text").setAttribute("display", "block");
-        document.getElementById("logout").setAttribute("display", "block");
-        document.getElementById("links").setAttribute("display", "none");
-        
+        document.getElementById("links").remove();
+        var input_field = document.getElementById("login_area");
+        var btn = document.createElement("button");
+        btn.setAttribute("id", "logout");
+        btn.innerHTML = "Logout";
+        input_field.appendChild(btn);
+        var email_info = document.createElement("p");
+        email_info.innerHTML = token;
+        input_field.appendChild(email_info);
+        //document.getElementById("email_text").setAttribute("display", "block");
+        //document.getElementById("logout").setAttribute("display", "block");
+        //document.getElementById("links").setAttribute("display", "none");
+        document.getElementById("logout").addEventListener("click", logout);
     }
-
-    document.getElementById("logout").addEventListener("click", logout);
 }
 
 function onSubmit(event) {
     event.preventDefault();
-    const formData = new formData(event.target);
+    //const formData = new FormData(event.target);
+    const authToken = localStorage.getItem("auth_token");
+    if(!authToken) return;
+
+    fetch("/", {
+        method: "GET",
+        headers: {
+            "authorization": "Bearer " + authToken
+        }
+    })
 
 
     /*fetch("/login.html", {
