@@ -48,7 +48,7 @@ function initializeCode() {
 }
 
 function onSubmit(event) {
-    event.preventDefault();
+    //event.preventDefault();
     //const formData = new FormData(event.target);
     const authToken = localStorage.getItem("auth_token");
     if(!authToken) return;
