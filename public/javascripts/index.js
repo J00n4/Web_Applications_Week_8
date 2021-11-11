@@ -24,7 +24,8 @@ if(document.readyState !== "loading") {
 }
 
 function initializeCode() {
-    onSubmit();
+    //onSubmit();
+    
     //document.getElementById("index-form").addEventListener("submit", onSubmit);
     
     /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
@@ -33,6 +34,16 @@ function initializeCode() {
     var links = document.getElementById("links");
     var logoutButton = document.getElementById("logout");
     var email_info = document.getElementById("email_text");
+   
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    var info = JSON.parse(jsonPayload);
+    console.log(info);
+
+    
     if(!token) {
         //document.getElementById("links").remove();
         links.style.visibility = "visible";
@@ -52,6 +63,7 @@ function initializeCode() {
         //document.getElementById("logout").setAttribute("display", "block");
         //document.getElementById("links").setAttribute("display", "none");
     } else {
+        email_info.innerHTML = info.email;
         links.style.visibility = "hidden";
         logoutButton.style.visibility = "visible";
         email_info.style.visibility = "visible";
@@ -68,6 +80,8 @@ function onSubmit(event) {
     console.log("This is the right place");
     const authToken = localStorage.getItem("auth_token");
     if(!authToken) return;
+    
+    console.log(authToken);
 
     fetch("/api/list", {
         method: "GET",
@@ -86,18 +100,9 @@ function onSubmit(event) {
 
 
 
-    /*register.style.visibility = "hidden";
-    login.style.visibility = "hidden";
-    logoutButton.style.visibility = "visible";
-    emailArea.style.visibility = "visible";
     
-    var base64Url = authToken.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace...
-    var jsonPayload = decodeURIComponent(atob(base...
-        return '%' + ('00' + c.charCodeAt(0).toString...
-    }).join(''));
     
-    emailArea.innerText = jsonPayload;
+    /*emailArea.innerText = jsonPayload;
     eventListener;
 } else {
     register.style.visibility = "visible";

@@ -16,7 +16,7 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
-//var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api');
 
 var app = express();
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'models')));
 //app.use(express.static(path.join(__dirname, 'api')));
 
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/api', usersRouter);
 
 

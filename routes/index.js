@@ -30,6 +30,11 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));
 
 /* GET home page. */
+/*router.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});*/
+
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
