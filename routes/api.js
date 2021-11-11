@@ -117,7 +117,9 @@ router.post('/login.html',
       }
     })
 });
+*/
 
+/*
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });*/

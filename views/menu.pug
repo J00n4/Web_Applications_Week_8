@@ -1,4 +1,4 @@
-header
+//header
     ul
         li: a(href="/") Home
         li: a(href="/api/list") List of users
@@ -6,4 +6,11 @@ header
         li: a(href="/api/user/login") Login
         li: a(href="/api/private") Private
         li: a(href="/api/todos") Todos
-    
+body 
+link(rel="stylesheet" href="stylesheets/style.css")
+form(id="index-form" action="" method="post")
+    div(class="container")
+        div(id="links")
+        div(id="login_area")
+    //script(type="text/javascript" src="/routes/index.js")
+    //script(type="text/javascript" src="/javascripts/index.js")

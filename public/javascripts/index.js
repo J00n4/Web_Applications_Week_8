@@ -13,8 +13,6 @@ const storage = multer.memoryStorage();
 const upload = multer({storage});
 const style = require("../stylesheets/style.css");*/
 
-
-
 if(document.readyState !== "loading") {
     initializeCode();
 } else {
@@ -31,49 +29,80 @@ function initializeCode() {
     /* Jos käyttäjä on kirjautunut, näytetään logout-nappi ja sähköposti
     Jos ei ole kirjautunut, näytetään login ja register linkit */
     token = getToken();
-    var links = document.getElementById("links");
-    var logoutButton = document.getElementById("logout");
-    var email_info = document.getElementById("email_text");
+    console.log(token);
+    //var links = document.getElementById("links");
+    //var logoutButton = document.getElementById("logout");
+    //var email_info = document.getElementById("email_text");
    
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    var info = JSON.parse(jsonPayload);
-    console.log(info);
 
     
-    if(!token) {
+    if(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        var info = JSON.parse(jsonPayload);
+        console.log(info);
+
+        var logoutButton = document.createElement("button");
+        logoutButton.setAttribute("id", "logout");
+        logoutButton.innerHTML = "Logout";
+        var email_text = document.createElement("p");
+        email_text.setAttribute("id", "email_text");
+        email_text.innerText = info.email;
+        var input_field = document.getElementById("login_area");
+        console.log(input_field);
+        input_field.appendChild(logoutButton);
+        input_field.appendChild(email_text);
+        //email_info.innerHTML = info.email;
+        //links.style.visibility = "hidden";
+        //logoutButton.style.visibility = "visible";
+        //email_info.style.visibility = "visible";
+        document.getElementById("logout").addEventListener("click", logout);
+
+        
+    } else {
+        var link_login = document.createElement("a");
+        var loglink = document.createTextNode("Login");
+        link_login.appendChild(loglink);
+        link_login.title = "Login";
+        link_login.href = "/login.html";
+        var link_register = document.createElement("a");
+        var reglink = document.createTextNode("Register");
+        link_register.appendChild(reglink);
+        link_register.title = "Register";
+        link_register.href = "/register.html";
+        //link_login.setAttribute("href", "/login.html");
+        //link_register.setAttribute("href", "/register.html");
+        var links = document.getElementById("links");
+        links.appendChild(link_login);
+        links.append(' ');
+        links.appendChild(link_register);
         //document.getElementById("links").remove();
-        links.style.visibility = "visible";
+        //links.style.visibility = "visible";
 
         //var input_field = document.getElementById("login_area");
         //var btn = document.createElement("button");
         //btn.setAttribute("id", "logout");
         //btn.innerHTML = "Logout";
         //input_field.appendChild(btn);
-        logoutButton.style.visibility = "hidden";
+        //logoutButton.style.visibility = "hidden";
         
-        email_info.style.visibility = "hidden";
+        //email_info.style.visibility = "hidden";
         //var email_info = document.createElement("p");
         //email_info.innerHTML = token;
         //input_field.appendChild(email_info);
         //document.getElementById("email_text").setAttribute("display", "block");
         //document.getElementById("logout").setAttribute("display", "block");
         //document.getElementById("links").setAttribute("display", "none");
-    } else {
-        email_info.innerHTML = info.email;
-        links.style.visibility = "hidden";
-        logoutButton.style.visibility = "visible";
-        email_info.style.visibility = "visible";
     }
 
-    document.getElementById("logout").addEventListener("click", logout);
+    //document.getElementById("logout").addEventListener("click", logout);
     console.log("This is the wrong place");
 }
 
-function onSubmit(event) {
+/*function onSubmit(event) {
     //event.preventDefault();
     //const formData = new FormData(event.target);
 
@@ -160,8 +189,8 @@ function onSubmit(event) {
               })
 
             
-        })*/
-}
+        })
+}*/
 
 
 function getToken() {
